@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Vulnerability Scanner</title>
+     <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1 style="color:red">Real-Time Vulnerability Scanner</h1>
+        <p>Enter a website URL to scan for common vulnerabilities.</p>
+    </header>
+
+    <main>
+        <!-- Scan Form -->
+        <form action="/scan" method="POST" id="scan-form">
+            <label for="url">Enter URL:</label>
+            <input type="url" id="url" name="url" placeholder="https://example.com" required>
+            <button type="submit">Scan</button>
+        </form>
+
+        <!-- Loading Message -->
+        <div id="loading-message" style="display: none;">Scanning the website...</div>
+
+        <!-- Scan Results -->
+        <h2>Scan Results</h2>
+        <div id="results-container">
+            {% if results %}
+                <ul>
+                    {% for result in results %}
+                        <li>
+                            <strong>URL:</strong> {{ result.url }}<br>
+                            <strong>SQL Injection:</strong> {{ result.sql_injection }}<br>
+                            <strong>XSS Injection:</strong> {{ result.xss }}<br>
+                            <strong>SSL Certificate:</strong> {{ result.ssl }}<br>
+                            <strong>Open Ports:</strong> {{ result.open_ports }}
+                        </li>
+                        <hr>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No scans yet. Enter a URL to begin scanning.</p>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <p>Powered by Flask | Website Vulnerability Scanner</p>
+    </footer>
+
+    <script>
+        // Show the loading message when the form is submitted
+        $(document).ready(function(){
+            $("#scan-form").submit(function(){
+                $("#loading-message").show();  // Show loading message
+            });
+        });
+    </script>
+</body>
+</html>

